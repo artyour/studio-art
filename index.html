@@ -1,37 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Studio Art - Landing Page</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Video BG + PNG (animée)</title>
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;font-family:system-ui,Segoe UI,Roboto,Arial}
+  .bg{
+    position:fixed; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    z-index:-1;
+  }
+  .scrim{
+    position:fixed; inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.25));
+    z-index:0;
+  }
+  .overlay{
+    position:relative; z-index:1;
+    height:100%;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; color:#fff; padding:24px;
+  }
+  h1{margin:0 0 8px; font-size:clamp(22px,4vw,36px)}
+  p{margin:0 0 16px; opacity:.9}
+  .btn{
+    background:#00e5ff; color:#041014; border:0; border-radius:12px;
+    padding:10px 16px; font-weight:700; cursor:pointer;
+  }
+
+  /* PNG animée : flottement + lueur pulsante */
+  .png{
+    position:fixed; right:20px; bottom:20px; z-index:2;
+    width:min(28vw,260px); height:auto;
+    pointer-events:none;
+    filter: drop-shadow(0 0 8px rgba(0,229,255,.45));
+    animation:
+      floatY 3.2s ease-in-out infinite,
+      glow   2.6s ease-in-out infinite;
+  }
+  @keyframes floatY{
+    0%{ transform:translateY(0) }
+    50%{ transform:translateY(-10px) }
+    100%{ transform:translateY(0) }
+  }
+  @keyframes glow{
+    0%,100%{ filter: drop-shadow(0 0 6px rgba(0,229,255,.35)) }
+    50%    { filter: drop-shadow(0 0 12px rgba(0,229,255,.65)) }
+  }
+
+  /* Accessibilité : désactive l’animation si l’utilisateur l’a demandé */
+  @media (prefers-reduced-motion: reduce){
+    .png{ animation: none }
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>🎬 Studio Art</h1>
-    <p>Montage vidéo, retouche d’images et effets visuels</p>
-  </header>
+  <video class="bg" autoplay muted loop playsinline poster="poster_720.jpg">
+    <source src="bg_desktop_1080.webm" type="video/webm">
+    <!-- <source src="bg_mobile_720.mp4" type="video/mp4"> -->
+  </video>
 
-  <main>
-    <section class="services">
-      <h2>Nos services</h2>
-      <ul>
-        <li>Montage vidéo professionnel</li>
-        <li>Retouche et création d’images</li>
-        <li>Effets visuels avec ImageMagick & FFmpeg</li>
-      </ul>
-    </section>
+  <div class="scrim"></div>
 
-    <section class="cta">
-      <p>Intéressé par nos services ?</p>
-      <a href="https://forms.gle/TON_FORMULAIRE" id="cta" class="btn">Remplir mon offre</a>
-    </section>
+  <img class="png" src="jak.png" alt="Silhouette animée">
+
+  <main class="overlay">
+    <div>
+      <h1>Bienvenue</h1>
+      <p>Vidéo plein écran + image PNG transparente (animée).</p>
+      <button class="btn">Un bouton</button>
+    </div>
   </main>
-
-  <footer>
-    <p>© 2025 Studio Art - Tous droits réservés</p>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
-
