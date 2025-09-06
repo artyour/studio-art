@@ -2,76 +2,56 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Video BG + PNG (animée)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ma Landing</title>
 <style>
-  html,body{margin:0;height:100%;overflow:hidden;font-family:system-ui,Segoe UI,Roboto,Arial}
-  .bg{
-    position:fixed; inset:0;
-    width:100%; height:100%;
-    object-fit:cover;
-    z-index:-1;
-  }
-  .scrim{
-    position:fixed; inset:0;
-    background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.25));
-    z-index:0;
-  }
-  .overlay{
-    position:relative; z-index:1;
-    height:100%;
-    display:flex; align-items:center; justify-content:center;
-    text-align:center; color:#fff; padding:24px;
-  }
-  h1{margin:0 0 8px; font-size:clamp(22px,4vw,36px)}
-  p{margin:0 0 16px; opacity:.9}
-  .btn{
-    background:#00e5ff; color:#041014; border:0; border-radius:12px;
-    padding:10px 16px; font-weight:700; cursor:pointer;
-  }
-
-  /* PNG animée : flottement + lueur pulsante */
-  .png{
-    position:fixed; right:20px; bottom:20px; z-index:2;
-    width:min(28vw,260px); height:auto;
-    pointer-events:none;
-    filter: drop-shadow(0 0 8px rgba(0,229,255,.45));
-    animation:
-      floatY 3.2s ease-in-out infinite,
-      glow   2.6s ease-in-out infinite;
-  }
-  @keyframes floatY{
-    0%{ transform:translateY(0) }
-    50%{ transform:translateY(-10px) }
-    100%{ transform:translateY(0) }
-  }
-  @keyframes glow{
-    0%,100%{ filter: drop-shadow(0 0 6px rgba(0,229,255,.35)) }
-    50%    { filter: drop-shadow(0 0 12px rgba(0,229,255,.65)) }
-  }
-
-  /* Accessibilité : désactive l’animation si l’utilisateur l’a demandé */
-  @media (prefers-reduced-motion: reduce){
-    .png{ animation: none }
-  }
+  *{box-sizing:border-box} html,body{height:100%} body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:#0b0b0b;color:#fff}
+  .bg{position:fixed;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.85)), center/cover no-repeat url("assets/bg.webp");z-index:-1}
+  .wrap{min-height:100%;display:grid;place-items:center;padding:16px}
+  .card{width:min(100%,1080px);display:grid;gap:16px;background:rgba(20,20,20,.6);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:20px}
+  h1{margin:.2rem 0;font-size:clamp(1.6rem,2.6vw,2.6rem)}
+  .lead{opacity:.95;line-height:1.6}
+  .media{display:grid;place-items:center;border:1px dashed rgba(255,255,255,.2);border-radius:14px;padding:12px;background:rgba(255,255,255,.04)}
+  .media-inner{width:min(100%,720px);aspect-ratio:16/9;overflow:hidden;border-radius:12px;background:#000;display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .media-inner img{width:100%;height:100%;object-fit:cover;display:block}
+  .cta{display:flex;gap:.75rem;flex-wrap:wrap}
+  .btn{background:#fff;color:#0b0b0b;border:0;border-radius:999px;padding:.8rem 1rem;font-weight:700;text-decoration:none}
+  .btn.alt{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+  @media (min-width:900px){.card{grid-template-columns:1.1fr .9fr;align-items:center}}
 </style>
 </head>
 <body>
-  <video class="bg" autoplay muted loop playsinline poster="poster_720.jpg">
-    <source src="bg_desktop_1080.webm" type="video/webm">
-    <!-- <source src="bg_mobile_720.mp4" type="video/mp4"> -->
-  </video>
+  <div class="bg" aria-hidden="true"></div>
+  <main class="wrap">
+    <section class="card" role="region" aria-label="Section principale">
+   <header class="head">
+  <h1>Art Your Image - Art Your Video</h1>
+  <p class="tagline">Turn your memories into magic art.</p>
+  <p class="lead">
+    Transform your image with our <strong>free artistic curl effect</strong>,  
+    or bring it to life with a <strong>premium animated video</strong>.
+  </p>
+  <div class="cta">
+    <a class="btn" href="#image-free">Art Your Image — Free</a>
+    <a class="btn alt" href="#video-pro">Art Your Video — Premium</a>
+  </div>
+</header>
+     <div class="media-box">
+ <video autoplay muted loop playsinline
+       poster="assets/preview.jpg"
+       style="width:100%;height:auto;display:block">
+  <source src="assets/demo.webm" type="video/webm">
+  <source src="assets/demo.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+  <img src="assets/preview.jpg" alt="Video preview">
+</video>
+</div>
 
-  <div class="scrim"></div>
 
-  <img class="png" src="jak.png" alt="Silhouette animée">
 
-  <main class="overlay">
-    <div>
-      <h1>Bienvenue</h1>
-      <p>Vidéo plein écran + image PNG transparente (animée).</p>
-      <button class="btn">Un bouton</button>
-    </div>
+    </section>
   </main>
+  <noscript>Active JavaScript pour une meilleure expérience.</noscript>
 </body>
 </html>
+
